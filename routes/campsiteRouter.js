@@ -93,9 +93,9 @@ campsiteRouter
 				.catch((err) => next(err));
 		}
 	);
-// End part 1
+// Week 2 End part 1
 
-// Part 2
+// week2 Part 2
 
 campsiteRouter
 	.route("/:campsiteId/comments")
@@ -199,12 +199,13 @@ campsiteRouter
 			`POST operation not supported on /campsites/${req.params.campsiteId}/comments/${req.params.commentId}`
 		);
 	})
+	// weeek3 task 4
 	.put(authenticate.verifyUser, (req, res, next) => {
 		Campsite.findById(req.params.campsiteId)
 			.then((campsite) => {
 				if (campsite && campsite.comments.id(req.params.commentId)) {
 					if (req.body.rating) {
-						campsite.comments.id(req.params.commentId).rating = req.body.rating;
+						campsite.comments.id(req.params.commentId).author_ = req.body.rating;
 					}
 					if (req.body.text) {
 						campsite.comments.id(req.params.commentId).text = req.body.text;
