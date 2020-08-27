@@ -7,12 +7,15 @@ const router = express.Router();
 
 /* GET users listing. */
 // week 3 task3
-router.get("/", authenticate.verifyAdmin, function (req, res, next) {
-	//	res.send("respond with a resource");
-	User.find(req.user.admin)
-	.then((users) =>{
-		res.setHeader("Content-Type", "application/json");
-		return;
+router.get("/",authenticate.verifyUser,authenticate.verifyAdmin, function (req, res, next) {
+User.find()
+		.then((users) => {
+			res.statusCode = 200;
+			res.setHeader("Content-Type", "application/json");
+			res.json(users);
+			return;
+		})
+		.catch((err) => next(err));
 });
 
 router.post("/signup", (req, res) => {
