@@ -11,7 +11,6 @@ campsiteRouter.use(bodyParser.json());
 
 campsiteRouter
 	.route("/")
-	//today
 	.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
 	.get(cors.cors, (req, res, next) => {
 		Campsite.find()
@@ -262,11 +261,11 @@ campsiteRouter
 	.delete(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
 		Campsite.findById(req.params.campsiteId)
 			.then((campsite) => {
-				if (campsite && campsite.comments.id(req.params.commentI)) {
+				if (campsite && campsite.comments.id(req.params.commentId)) {
 					if (
 						campsite.comments
-							.id(req.params.commentI)
-							.author_id.equals(req.user._id)
+							.id(req.params.commentId)
+							.author._id.equals(req.user._id)
 					) {
 						campsite.comments.id(req.params.commentId).remove();
 						campsite
